@@ -22,9 +22,22 @@ app.get("/",(req,res)=>{
     res.send("Hello world my name is anirdha");
 });
 
-dbConnect();
+import UserRouter from "./routes/user.routes.js";
+import ProductRouter from "./routes/product.routes.js";
+import OrderRouter from "./routes/order.routers.js";
 
-app.listen(port,()=>{
-    console.log(`Server listenindg on port ${port}`);
+app.use("/api/v1",UserRouter);
+app.use("/api/v1",ProductRouter)
+app.use("/api/v1",OrderRouter)
+
+dbConnect()
+ .then(()=>{
+    app.listen(port,()=>{
+        console.log(`Server listenindg on port ${port}`);
+        
+    });
+ })
+.catch((error)=>{
+    console.log(error);
     
-})
+});
